@@ -97,7 +97,7 @@ public class EntryResource {
         if (eagerload) {
             page = entryRepository.findAllWithEagerRelationships(pageable);
         } else {
-            page = entryRepository.findAll(pageable);
+                page = entryRepository.findAll(pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/entries?eagerload=%b", eagerload));
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

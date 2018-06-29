@@ -1,6 +1,5 @@
 package org.jhipster.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,8 +31,9 @@ public class Entry implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @NotNull
     @Lob
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String content;
 
     @NotNull
@@ -41,14 +41,13 @@ public class Entry implements Serializable {
     private ZonedDateTime date;
 
     @ManyToOne
-    @JsonIgnoreProperties("")
     private Blog blog;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "entry_tag",
-               joinColumns = @JoinColumn(name = "entries_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "tags_id", referencedColumnName = "id"))
+               joinColumns = @JoinColumn(name="entries_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="id"))
     private Set<Tag> tags = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
